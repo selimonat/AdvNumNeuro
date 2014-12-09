@@ -5,7 +5,19 @@
 % (c) a vector with randomly binary events. Plot a, b, c in a row. Compute
 % their Fourier transform and plot their power spectra below, so that you
 % have 6 figures organized as a 2 by 3 matrix.
-
+sr    = 100;
+hrf   = spm_hrf(1/sr);
+power = log10(abs(fft(hrf)));
+power = power(1:round(length(hrf)/2));
+plot(linspace(0,0.5,length(power)),power);
+%%
+duration = 600;
+ttrials  = 10;
+x        = zeros(1,duration*sr);
+onsets   = round(duration*.333+rand(1,ttrials)*duration*.333)*sr;
+x(onsets) = 1;
+plot(x);
+plot(log10(abs(fft(x))))
 
 %% 2D Fourier transform
 %In order to understand the k-space we need to get familiar with the 2D
