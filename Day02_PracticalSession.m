@@ -1,38 +1,42 @@
-
-%% =============1D Fourier Transform===================================================================
-% compute an average (across pixels) power spectrum of the evoked signal, make a plot with error bars.
-% the signal is recorded at 200 Hz, use this information to plot the power
-% spectra on a correct x-axis (frequency). 
+%% Verify that the power spectrum of an impulse function is white.
 
 
-% Do the same as before but first compute the power spectra on individual
-% trials and then average the power spectra. 
+% (a) Generate a hrf function (b) a vector of periodic binary events,
+% (c) a vector with randomly binary events. Plot a, b, c in a row. Compute
+% their Fourier transform and plot their power spectra below, so that you
+% have 6 figures organized as a 2 by 3 matrix.
 
 
-% Why is it different?
+%% 2D Fourier transform
+%In order to understand the k-space we need to get familiar with the 2D
+%Fourier transform and get an intuitive feeling of the information that
+%are represented by different Fourier components.
+%Let's compute the 2D Fourier transform of the baboon picture with fft2()
+%after transforming it to grayscale. You should 
+%observe some interesting points when you
+%visualize its power spectra. Apply fftshift() to the Fourier
+%transform and also visualize in the log10 scale. 
 
 
-%% ============BASICS =======================================================================================
-%% Compute the signal to noise ratio of between stimulus ON and OFF conditions in dB.
+
+% How this power spectra compares to the power spectra of a random image.
+% Create a image consisting of random numbers the same size as baboon
+% image, and visualize its power spectra. 
 
 
 
-%% =============2D Fourier Transform=========================================================================
-% Compute the Fourier transform of the HRF responses and detect the peak
-% frequency in the power spectrum.
-%
-%
-% Create a series of delta functions and compute their Fourier Transoform.
+%We would like to mask
+%(make it equal to zero) different Fourier components and inverse transform
+%back to the pixel space in order to see the contribution of different
+%spatial frequencies. First of all let's zero the central part in the
+%Fourier space. It would be very nice if you could create a function
+%that returns you a mask with relevant parameters i.e. diameter. 
 
 
-% Compute the power spectrum of the monkey and forest images (in ...).
-% Use the 3 masks provided to zero-down all the power and bring make an inverse transform to pixel space.
-% Where is the spectral energy (high vs. low frequencies, horizontal vs. vertical orientations) most densely located ?
 
-
-% Create a random image (same size as the forest image) and compute its power spectrum.
-
-
-% Make an inverse FFT of a data that consists of the phase spectrum of the random image and amplitude spectra of the forest image.
-% How does the result look like?
+% We were focusing a lot on the amplitudes so far, what about the phase
+% information? What is the effect of destroying the phase information? So
+% let's create random phases and mix them with the amplitude information of
+% that we have in the Fourier space, and inverse it back to the pixel
+% space. What do you see? 
 
