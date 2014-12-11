@@ -127,19 +127,25 @@ mag =  abs(baboon_pow);
 phase = angle(baboon_pow);
 %phasenew = phase + 4*(rand(size(baboon_pow))-0.5);
 phasenew = angle(rand_img_pow);
+%% another way of implementing the random phase while respecting the symmetry structure
+% create a random image in the pixel space, use its phase spectrum, which
+% is necessarily also random.
+phasenew = angle(fft2(rand(size(mag))));
+
 % Calculate phasenew using some algorithm, phasenew is very similar to phase, so output should be same.
 
 re = mag .* cos(phasenew);
 im = mag .* sin(phasenew);
 baboon_pow_randphase = complex(re,im);
-
-baboon_randphase = ifft2(baboon_pow_randphase);
-
+baboon_randphase     = ifft2(baboon_pow_randphase);
+%baboon_randphase should now have very very small imaginary parts, that can
+%safely be discarded
+baboon_randphase = real(baboon_randphase);
 % rand_baboon_pow = baboon_pow+100000*rand(size(baboon_pow))*i;
 % 
 % rec_rand_baboon = ifft2(rand_baboon_pow);
 figure
 
-imagesc(real(baboon_randphase))
+imagesc(baboon_randphase)
 colormap(gray)
 colorbar
